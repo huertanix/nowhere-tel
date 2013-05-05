@@ -11,4 +11,6 @@ Let me take you there
 
 The dotted line
 
-Surrounding the mind Of a self called nowhere
+Surrounding the mind
+
+Of a self called nowhere
