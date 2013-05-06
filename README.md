@@ -13,4 +13,4 @@ The dotted line
 
 Surrounding the mind
 
-Of a self called nowhere
+Of a tel called nowhere
