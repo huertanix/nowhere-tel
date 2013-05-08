@@ -1,10 +1,10 @@
 <?php
   include 'Services/Twilio/Capability.php';
    
-  // put your Twilio API credentials here
-  $accountSid = getenv('TWILIO_ACCT_SID');
-  $authToken = getenv('TWILIO_AUTH_TOKEN');
-  $appSid = getenv('TWILIO_CLIENT_APP_SID');
+  // put your Twilio API credentials in a environment variable to prevent git commit leaks
+  $accountSid = $_SERVER['TWILIO_ACCT_SID'];
+  $authToken = $_SERVER['TWILIO_AUTH_TOKEN'];
+  $appSid = $_SERVER['TWILIO_CLIENT_APP_SID'];
   
   $capability = new Services_Twilio_Capability($accountSid, $authToken);
   $capability->allowClientOutgoing($appSid);
@@ -48,19 +48,19 @@
         $('#toggle_call').text = "Call";
       });
 
-      //Twilio.Device.cancel(function (conn) {
-      //  $("#log").text("Call ended on the other end");
-      //});
+      Twilio.Device.cancel(function (conn) {
+        $("#log").text("Call ended on the other end");
+      });
 
       function togglecall() {
-        //if (Twilio.Device.status() === 'busy') {
-        //  Twilio.Device.disconnectAll();
-        //}
-        //else {
+        if (Twilio.Device.status() === 'busy') {
+          Twilio.Device.disconnectAll();
+        }
+        else {
           var params = {"PhoneNumber": "+1" + $("#call_number").val()};
           alert("1" + $("#call_number").val());
           Twilio.Device.connect(params);
-        //}
+        }
       }
     </script>
   </head>
