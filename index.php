@@ -48,18 +48,19 @@
         $('#toggle_call').text = "Call";
       });
 
-      Twilio.Device.cancel(function(conn) {
-        $("#log").text("Call ended on the other end");
-      });
+      //Twilio.Device.cancel(function (conn) {
+      //  $("#log").text("Call ended on the other end");
+      //});
 
       function togglecall() {
-        if (Twilio.Device.status() === 'busy') {
-          Twilio.Device.disconnectAll();
-        }
-        else {
-          params = {"PhoneNumber": $("#call_number").val()};
+        //if (Twilio.Device.status() === 'busy') {
+        //  Twilio.Device.disconnectAll();
+        //}
+        //else {
+          var params = {"PhoneNumber": "+1" + $("#call_number").val()};
+          alert("1" + $("#call_number").val());
           Twilio.Device.connect(params);
-        }
+        //}
       }
     </script>
   </head>
@@ -69,7 +70,7 @@
         <img src="img/tor.png" alt="" style="display:inline;" />
       </div>-->
       <h1>A Tel Called Nowhere</h1>
-      <p>We're all Reyjavikians now.</p>
+      <p>Good luck, I'm behind 7 proxies!</p>
       <p><label for="call_number">Phone Number:</label>
       <input type="tel" id="call_number" name="call_number" maxlength="10" autofocus="autofocus" placeholder="e.g. 917-746-5859" />
       <button id="toggle_call" name="toggle_call" onclick="togglecall();">Call</button></p>
