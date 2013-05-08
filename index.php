@@ -50,7 +50,7 @@
 
       Twilio.Device.cancel(function(conn) {
         $("#log").text("Call ended on the other end");
-    });
+      });
 
       function togglecall() {
         if (Twilio.Device.status() === 'busy') {
@@ -71,8 +71,22 @@
       <h1>A Tel Called Nowhere</h1>
       <p>We're all Reyjavikians now.</p>
       <p><label for="call_number">Phone Number:</label>
-      <input type="tel" id="call_number" name="call_number" maxlength="7" autofocus="autofocus" placeholder="e.g. 917-746-5859" />
+      <input type="tel" id="call_number" name="call_number" maxlength="10" autofocus="autofocus" placeholder="e.g. 917-746-5859" />
       <button id="toggle_call" name="toggle_call" onclick="togglecall();">Call</button></p>
+      <!--<ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>*</li>
+        <li>0</li>
+        <li>#</li>
+      <ul>-->
       <div id="log"></div>
       <small><a href="https://www.flickr.com/photos/didmyself/6377889005/">Photo</a> by Daniel Kulinski (CC BY-NC-SA 2.0)</small>
     </div>
