@@ -27,69 +27,106 @@
     <script src="js/vendor/jquery-1.9.0.min.js"></script>
     <script type="text/javascript" src="//static.twilio.com/libs/twiliojs/1.1/twilio.min.js"></script>
     <script type="text/javascript">
-
+    $(document).ready(function() {
       Twilio.Device.setup('<?php echo $capability_token; ?>');
 
       Twilio.Device.ready(function (device) {
-        $('#log').text('Ready');
+        $('#status, #status-light').removeClass('badnews').addClass('goodnews');
+        $('#status').text('Ready');
       });
 
       Twilio.Device.error(function (error) {
-        $('#log').text('Error: ' + error.message);
+        $('#status').removeClass('goodnews').addClass('badnews');
+        $('#status').text('Error: ' + error.message);
       });
 
       Twilio.Device.connect(function (conn) {
-        $('#log').text('Successfully established call');
-        $('#toggle_call').text = "Hangup";
+        $('#status').removeClass('badnews').addClass('goodnews');
+        $('#status').text('Call established');
       });
 
       Twilio.Device.disconnect(function (conn) {
-        $("#log").text("Call ended");
-        $('#toggle_call').text = "Call";
+        $('#status').removeClass('goodnews').addClass('badnews');
+        $("#status").text("Call ended");
       });
 
       Twilio.Device.cancel(function (conn) {
-        $("#log").text("Call ended on the other end");
+        $('#status').removeClass('goodnews').addClass('badnews');
+        $("#status").text("Got hung up on");
       });
 
-      function togglecall() {
-        if (Twilio.Device.status() === 'busy') {
-          Twilio.Device.disconnectAll();
-        }
-        else {
-          var params = {"PhoneNumber": "+1" + $("#call_number").val()};
-          alert("1" + $("#call_number").val());
-          Twilio.Device.connect(params);
-        }
+      function startCall() {
+        var params = {"PhoneNumber": "+1" + $("#call_number").val()};
+        Twilio.Device.connect(params);
       }
+
+      function endCall() {
+        Twilio.Device.disconnectAll();
+      }
+
+      $('#call_number').keypress(function(ev) {
+        var charCode = ev.which
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+          return false;
+
+        return true;
+      });
+
+      $('#dialpad button').each ( function(index, el) {
+        $(this).click( function() {
+          var current_number = $('#call_number').val();
+          var button_value = this.firstChild.nodeValue;
+          if (/^\d+$/.test(button_value)) {
+            current_number = current_number.toString() + button_value;
+            $('#call_number').val(current_number);
+          }
+        });
+      });
+    });
     </script>
   </head>
   <body>
     <div class="container">
-      <!--<div class="logo-container">
-        <img src="img/tor.png" alt="" style="display:inline;" />
-      </div>-->
-      <h1>A Tel Called Nowhere</h1>
-      <p>Good luck, I'm behind 7 proxies!</p>
-      <p><label for="call_number">Phone Number:</label>
-      <input type="tel" id="call_number" name="call_number" maxlength="10" autofocus="autofocus" placeholder="e.g. 917-746-5859" />
-      <button id="toggle_call" name="toggle_call" onclick="togglecall();">Call</button></p>
-      <!--<ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-        <li>6</li>
-        <li>7</li>
-        <li>8</li>
-        <li>9</li>
-        <li>*</li>
-        <li>0</li>
-        <li>#</li>
-      <ul>-->
-      <div id="log"></div>
-      <small><a href="https://www.flickr.com/photos/didmyself/6377889005/">Photo</a> by Daniel Kulinski (CC BY-NC-SA 2.0)</small>
+      <div class="logo-container">
+        <img src="img/nowhere_tel_logo.png" alt="BFE" />
+        <h1>Nowhere Tel</h1>
+        <h2>Where you at? Behind 7 proxies!&#0153;</h2>
+      </div>
+      <p>
+        <div class="status-indicator">
+          <span id="status-light"></span><span id="status"></span>
+        </div>
+        <label for="call_number">Phone Number (US Only):</label>
+        <input type="tel" id="call_number" name="call_number" maxlength="10" pattern="\d*" autofocus="autofocus" 
+          placeholder="e.g. 9177465859" />
+        <!--<button class="metal radial">✈</button>
+        <button class="metal linear">0</button>
+        <a href="http://simurai.com/post/9214147117/css3-brushed-metal" class="metal linear oval">i</a>-->
+      </p>
+      <div class="controls-container">
+        <div id="dialpad">
+          <button>1</button>
+          <button>2</button>
+          <button>3</button>
+          <button>4</button>
+          <button>5</button>
+          <button>6</button>
+          <button>7</button>
+          <button>8</button>
+          <button>9</button>
+          <button>*</button>
+          <button>0</button>
+          <button>#</button>
+        </div>
+        <div class="dialcontrols">
+          <button id="start_call" name="start_call" onclick="startCall();">Call</button>
+          <button id="end_call" name="end_call" onclick="endCall();">Hangup</button>
+        </div>
+      </div>
+      <p>
+        <small><b>DISCLAIMER</b>: This is an experimental proof-of-concept and cannot guarantee anything, 
+        including location anonymity. This is just the first step.</small>
+      </p>
     </div>
   </body>
 </html>
