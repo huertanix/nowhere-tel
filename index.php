@@ -29,6 +29,7 @@
     <script type="text/javascript">
     $(document).ready(function() {
       Twilio.Device.setup('<?php echo $capability_token; ?>');
+      var connection = null;
 
       Twilio.Device.ready(function (device) {
         $('#status, #status-light').removeClass('badnews').addClass('goodnews');
@@ -57,7 +58,7 @@
 
       function startCall() {
         var params = {"PhoneNumber": "+1" + $("#call_number").val()};
-        Twilio.Device.connect(params);
+        connection = Twilio.Device.connect(params);
       }
 
       function endCall() {
@@ -76,6 +77,11 @@
         $(this).click( function() {
           var current_number = $('#call_number').val();
           var button_value = this.firstChild.nodeValue;
+
+          if (connection) {
+            connection.sendDigits(button_value);
+          }
+
           if (/^\d+$/.test(button_value)) {
             current_number = current_number.toString() + button_value;
             $('#call_number').val(current_number);
