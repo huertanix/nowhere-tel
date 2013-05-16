@@ -37,22 +37,22 @@
       });
 
       Twilio.Device.error(function (error) {
-        $('#status').removeClass('goodnews').addClass('badnews');
+        $('#status, #status-light').removeClass('goodnews').addClass('badnews');
         $('#status').text('Error: ' + error.message);
       });
 
       Twilio.Device.connect(function (conn) {
-        $('#status').removeClass('badnews').addClass('goodnews');
+        $('#status, #status-light').removeClass('badnews').addClass('goodnews');
         $('#status').text('Call established');
       });
 
       Twilio.Device.disconnect(function (conn) {
-        $('#status').removeClass('goodnews').addClass('badnews');
+        $('#status, #status-light').removeClass('goodnews').addClass('badnews');
         $("#status").text("Call ended");
       });
 
       Twilio.Device.cancel(function (conn) {
-        $('#status').removeClass('goodnews').addClass('badnews');
+        $('#status, #status-light').removeClass('goodnews').addClass('badnews');
         $("#status").text("Got hung up on");
       });
 
@@ -64,6 +64,9 @@
       function endCall() {
         Twilio.Device.disconnectAll();
       }
+
+      $('#start_call').click(startCall);
+      $('#end_call').click(endCall);
 
       $('#call_number').keypress(function(ev) {
         var charCode = ev.which
@@ -96,7 +99,7 @@
       <div class="logo-container">
         <img src="img/nowhere_tel_logo.png" alt="BFE" />
         <h1>Nowhere Tel</h1>
-        <h2>Where you at? Behind 7 proxies!&#0153;</h2>
+        <!--<h2>Where you at? Behind 7 proxies!&#0153;</h2>-->
       </div>
       <p>
         <div class="status-indicator">
@@ -125,8 +128,8 @@
           <button>#</button>
         </div>
         <div class="dialcontrols">
-          <button id="start_call" name="start_call" onclick="startCall();">Call</button>
-          <button id="end_call" name="end_call" onclick="endCall();">Hangup</button>
+          <button id="start_call" name="start_call">Call</button>
+          <button id="end_call" name="end_call">Hangup</button>
         </div>
       </div>
       <p>
