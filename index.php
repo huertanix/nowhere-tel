@@ -134,7 +134,7 @@
       </div>
       <p>
         <small><b>DISCLAIMER</b>: This is an experimental proof-of-concept and cannot guarantee anything, 
-        including location anonymity. This is just the first step.</small>
+        including location anonymity. Call 917-746-5859 for a good time.</small>
       </p>
     </div>
   </body>
