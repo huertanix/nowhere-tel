@@ -27,87 +27,29 @@
     <script src="js/vendor/jquery-1.9.0.min.js"></script>
     <script type="text/javascript" src="//static.twilio.com/libs/twiliojs/1.1/twilio.min.js"></script>
     <script type="text/javascript">
-    $(document).ready(function() {
-      Twilio.Device.setup('<?php echo $capability_token; ?>');
-      var connection = null;
-
-      Twilio.Device.ready(function (device) {
-        $('#status, #status-light').removeClass('badnews').addClass('goodnews');
-        $('#status').text('Ready');
+      $(document).ready(function() {
+        Twilio.Device.setup('<?php echo $capability_token; ?>');
       });
-
-      Twilio.Device.error(function (error) {
-        $('#status, #status-light').removeClass('goodnews').addClass('badnews');
-        $('#status').text('Error: ' + error.message);
-      });
-
-      Twilio.Device.connect(function (conn) {
-        $('#status, #status-light').removeClass('badnews').addClass('goodnews');
-        $('#status').text('Call established');
-      });
-
-      Twilio.Device.disconnect(function (conn) {
-        $('#status, #status-light').removeClass('goodnews').addClass('badnews');
-        $("#status").text("Call ended");
-      });
-
-      Twilio.Device.cancel(function (conn) {
-        $('#status, #status-light').removeClass('goodnews').addClass('badnews');
-        $("#status").text("Got hung up on");
-      });
-
-      function startCall() {
-        var params = {"PhoneNumber": "+1" + $("#call_number").val()};
-        connection = Twilio.Device.connect(params);
-      }
-
-      function endCall() {
-        Twilio.Device.disconnectAll();
-      }
-
-      $('#start_call').click(startCall);
-      $('#end_call').click(endCall);
-
-      $('#call_number').keypress(function(ev) {
-        var charCode = ev.which
-        if (charCode > 31 && (charCode < 48 || charCode > 57))
-          return false;
-
-        return true;
-      });
-
-      $('#dialpad button').each ( function(index, el) {
-        $(this).click( function() {
-          var current_number = $('#call_number').val();
-          var button_value = this.firstChild.nodeValue;
-
-          if (connection) {
-            connection.sendDigits(button_value);
-          }
-
-          if (/^\d+$/.test(button_value)) {
-            current_number = current_number.toString() + button_value;
-            $('#call_number').val(current_number);
-          }
-        });
-      });
-    });
     </script>
+    <script type="text/javascript" src="js/main.js"></script>
   </head>
   <body>
     <div class="container">
       <div class="logo-container">
         <img src="img/nowhere_tel_logo.png" alt="BFE" />
-        <h1>Nowhere Tel</h1>
         <!--<h2>Where you at? Behind 7 proxies!&#0153;</h2>-->
       </div>
-      <p>
-        <div class="status-indicator">
-          <span id="status-light"></span><span id="status"></span>
-        </div>
+      <nav id="subheader">
+        <!--Nowhere Tel&#0153;-->
         <label for="call_number">Phone Number (US Only):</label>
         <input type="tel" id="call_number" name="call_number" maxlength="10" pattern="\d*" autofocus="autofocus" 
           placeholder="e.g. 9177465859" />
+        <div class="status-indicator">
+          <span id="status-light"></span><span id="status"></span>
+        </div>
+      </nav>
+      <p>
+
         <!--<button class="metal radial">✈</button>
         <button class="metal linear">0</button>
         <a href="http://simurai.com/post/9214147117/css3-brushed-metal" class="metal linear oval">i</a>-->
