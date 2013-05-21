@@ -147,6 +147,7 @@ textarea {
 
 .container a {
   font-weight: bold;
+  color:#000;
 }
 
 .container h1 {
@@ -181,14 +182,14 @@ textarea {
   -webkit-border-radius: 5px;
   -khtml-border-radius: 5px;*/
   /*border: #666 solid 1px;*/
-  width: 220px;
+  width: 230px;
   height: 30px;
   display:inline;
   float:right;
 }
 
 #status-light {
-  width: 35px;
+  width: 15px;
   height: 35px;
   float: left;
   /*-webkit-border-top-left-radius: 5px;
@@ -359,13 +360,7 @@ button {
 
 /* globals */
 
-@import url(http://fonts.googleapis.com/css?family=Droid+Sans:regular,bold);
-@import url(prefixes.css);
-
 button { border: none; display: block; }
-a { text-decoration: none; display: block; }
-
-
 
 /* Metal ------------------------- */
 

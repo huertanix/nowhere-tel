@@ -76,7 +76,7 @@
       </div>
       <p>
         <small><b>DISCLAIMER</b>: This is an experimental proof-of-concept and cannot guarantee anything, 
-        including location anonymity. Call 917-746-5859 for a good time.</small>
+        including location anonymity. Created by <a href="http://www.davidhuerta.me">David Huerta</a> for Hack Miami Conference 2013. Distributed under the MIT license. Source code available on <a href="https://github.com/huertanix/nowhere-tel/">Github</a>.Call 917-746-5859 for a good time.</small>
       </p>
     </div>
   </body>
