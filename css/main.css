@@ -139,9 +139,9 @@ textarea {
 }
 
 .logo-container img {
-  height: 140px;
-  width: 140px;
-  margin-top:45px;
+  height: 130px;
+  width: 130px;
+  margin-top:55px;
   /*margin: 10px 10px 0 0;*/
 }
 
@@ -164,7 +164,7 @@ textarea {
 #subheader {
   padding: 8px 15px 15px 15px;
   height: 30px;
-  background-color: #333;
+  background-color: #000;
   color: #fff;
   font-size: 25px;
   -webkit-border-bottom-right-radius: 20px;
